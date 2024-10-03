@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
  const navigate = useNavigate();
   const handleLogin = async() => {
@@ -17,6 +18,7 @@ const Login = () => {
    dispatch(addUser(res.data));
    navigate("/")
   }catch(err){
+    setError(err?.response?.data);
     console.error(err);
   }
   }
@@ -54,6 +56,7 @@ const Login = () => {
               <div className="label"></div>
             </label>
           </div>
+          <p className="text-red-500">{error}</p>
           <div className="card-actions justify-center">
             <button className="btn btn-primary m-2" onClick={handleLogin}>Login</button>
           </div>
