@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useDispatch,useSelector } from 'react-redux'
 import { BASEURL } from '../utils/constants'
 import {addUser} from '../utils/userSlice';
+import Feed from './Feed'
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,14 +22,14 @@ const Body = () => {
 }
 
 useEffect(()=>{
-  if(!userData){
-  fetchUser()
-  }
+  // if(!userData){
+  // fetchUser()
+  // }
 },[])
   return (
     <>
     <NavBar/>
-    <Outlet/>
+    <Feed/>
     <Footer/>
     </>
   )
