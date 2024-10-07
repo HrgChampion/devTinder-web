@@ -4,13 +4,15 @@ import { BASEURL } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { addConnection } from '../utils/connectionSlice';
 
+
 const Connections = () => {
     const dispatch = useDispatch();
     const connections  = useSelector((store) => store.connection);
     const fetchConnections = async() => {
         try{
         const res = await axios.get(BASEURL + "/user/connections",{withCredentials: true});
-        dispatch(addConnection(res.data.data))
+        console.log(res.data)
+        dispatch(addConnection(res.data))
         }catch(err){
             console.error(err);
         }
@@ -26,7 +28,7 @@ const Connections = () => {
     <div className=' text-center my-10'>
         <h1 className='font-bold text-white text-3xl'>Connections</h1>
         {connections?.map((connection) => {
-            const {_id,firstName,lastName,photoUrl,age,gender,about} = connection
+            const {_id,firstName,lastName,photoUrl,age,gender,about} = connection.fromUserId
             return(
            <div className='flex m-4 p-4 bg-base-300 rounded-lg w-1/2 mx-auto' key={_id}>
            <div>            

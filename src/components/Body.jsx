@@ -22,16 +22,17 @@ const Body = () => {
 }
 
 useEffect(()=>{
-  // if(!userData){
-  // fetchUser()
-  // }
+  if(!userData){
+  fetchUser()
+  }
 },[])
   return (
-    <>
-    <NavBar/>
-    <Feed/>
+    <div>
+
+     <NavBar/>
+    <Outlet/>
     <Footer/>
-    </>
+    </div>
   )
 }
 

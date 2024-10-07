@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import UserCard from './UserCard';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { BASEURL } from '../utils/constants';
 
 const EditProfile = ({user}) => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [age, setAge] = useState("");
+    const [firstName, setFirstName] = useState(user.firstName);
+    const [lastName, setLastName] = useState(user.lastName);
+    const [age, setAge] = useState(user.age || "");
     const [gender, setGender] = useState("");
-    const [about, setAbout] = useState("");
+    const [about, setAbout] = useState(user.about);
+    const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
     const [error, setError] = useState("");
     const [showToast, setShowToast] = useState(false);
     const dispatch = useDispatch();
@@ -19,7 +22,8 @@ const EditProfile = ({user}) => {
             lastName,
             age,
             gender,
-            about
+            about,
+            photoUrl
         },{
             withCredentials: true})
         dispatch(addUser(res.data?.data))
@@ -81,6 +85,19 @@ const EditProfile = ({user}) => {
           </label>
           <label className="form-control w-full max-w-xs my-2">
             <div className="label">
+              <span className="label-text">Photo URL</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered w-full max-w-xs"
+              value={photoUrl}
+              onChange={(e) => setPhotoUrl(e.target.value)}  
+            />
+            <div className="label"></div>
+          </label>
+          <label className="form-control w-full max-w-xs my-2">
+            <div className="label">
               <span className="label-text">Gender</span>
             </div>
             <input
@@ -113,7 +130,7 @@ const EditProfile = ({user}) => {
       </div>
     </div>
   </div>
-  <UserCard/>
+  <UserCard user={user}/>
   </div>
 { showToast && ( <div className="toast toast-center toast-top">
   <div className="alert alert-success">
